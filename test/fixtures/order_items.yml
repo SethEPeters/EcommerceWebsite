@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  item_image_path: MyString
+  price_at_purchase: 1.5
+  date_price_good_until: 2026-07-12 13:24:31
+
+two:
+  title: MyString
+  item_image_path: MyString
+  price_at_purchase: 1.5
+  date_price_good_until: 2026-07-12 13:24:31

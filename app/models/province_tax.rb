@@ -1,0 +1,3 @@
+class ProvinceTax < ApplicationRecord
+  belongs_to :order
+end
