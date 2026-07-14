@@ -8,6 +8,13 @@ class Order < ApplicationRecord
   validates :delivery_address, presence: true
   validates :date_of_purchase, presence: true
 
+  validates :id, numericality: { only_integer: true }
+  validates :order_total_at_purchase, numericality: true
+  # below allows all letters, numbers, underscore, period, apostrophe, and comma
+  validates :delivery_address, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  # below allows all letters, numbers, underscore, period, apostrophe, and comma
+  validates :date_of_purchase, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+
   def self.ransackable_attributes(auth_object = nil)
     ["id", "order_total_at_purchase", "delivery_address", "date_of_purchase", "order_item_id", "province_tax_id", "created_at", "updated_at"]
   end

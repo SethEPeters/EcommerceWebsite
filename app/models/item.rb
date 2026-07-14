@@ -2,17 +2,18 @@ class Item < ApplicationRecord
   has_one :category
   has_one_attached :item_image_path
 
-  validates :id, presence: true
   validates :title, presence: true
   validates :description, presence: true
   validates :artist, presence: true
   validates :price, presence: true
   validates :quantity, presence: true
 
-  validates :id, numericality: { only_integer: true }
-  validates :title, presence: true
-  validates :description, presence: true
-  validates :artist, presence: true
+  # below allows all letters, numbers, underscore, period, apostrophe, and comma
+  validates :title, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  # below allows all letters, numbers, underscore, period, apostrophe, and comma
+  validates :description, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  # below allows all letters, numbers, underscore, period, apostrophe, and comma
+  validates :artist, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letter numbers and some symbolss" }
   validates :price, numericality: true
   validates :quantity, numericality: { only_integer: true }
 
