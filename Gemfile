@@ -74,3 +74,6 @@ gem 'draper'
 gem 'pundit'
 
 gem "sprockets-rails"
+
+gem 'bootstrap', '~> 5.3.8'
+gem 'kaminari'

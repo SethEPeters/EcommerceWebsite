@@ -1,10 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @item %>
+<div id="item">
+    <p><%= @item.title %></p>
+    <p><%= @item.description %></p>
+    <p><%= @item.artist %></p>
+    <p><%= @item.price %></p>
+    <p><%= @item.quantity %></p>
+    <% if @item.item_image_path.attached? %>
+      <%= image_tag(@item.item_image_path, width: '200px') %>
+    <% end %>
+</div>
 
 <div>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
   <%= link_to "Back to items", items_path %>
-
-  <%= button_to "Destroy this item", @item, method: :delete %>
 </div>
