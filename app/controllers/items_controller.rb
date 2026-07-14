@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   # GET /items or /items.json
   def index
     @items = Item.all
+
   end
 
   # GET /items/1 or /items/1.json
@@ -66,5 +67,6 @@ class ItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def item_params
       params.expect(item: [ :title, :description, :item_image_path, :artist, :price, :quantity ])
+      params.require(:item).permit(:image)
     end
 end

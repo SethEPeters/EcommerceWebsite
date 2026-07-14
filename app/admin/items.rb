@@ -14,6 +14,12 @@ ActiveAdmin.register Item do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  config.filters = true
+  filter :title
+  filter :description
+  filter :artist
+  filter :price
+  filter :quantity
 
     form do |f|
     f.inputs 'Item Details' do
