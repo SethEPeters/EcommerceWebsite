@@ -29,9 +29,12 @@ ActiveAdmin.register Item do
       f.input :artist, as: :string
       f.input :price, as: :number
       f.input :quantity, as: :number
+      f.input :category_id,
+              as: :select,
+              collection: Category.all.map { |c| [c.name, c.id] }
     end
     f.actions
   end
 
-  permit_params :title, :description, :item_image_path, :artist, :price, :quantity
+  permit_params :title, :description, :item_image_path, :artist, :price, :quantity, :category_id
 end

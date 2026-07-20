@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_14_020805) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_19_220651) do
+  create_table "abouts", force: :cascade do |t|
+    t.text "about_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer "author_id"
     t.string "author_type"
@@ -71,6 +77,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_020805) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.string "phone_number"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "first_name"
@@ -82,6 +96,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_020805) do
 
   create_table "items", force: :cascade do |t|
     t.string "artist"
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.string "description"
     t.string "item_image_path"
@@ -89,6 +104,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_020805) do
     t.integer "quantity"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_items_on_category_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -119,4 +135,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_020805) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "items", "categories"
 end

@@ -9,11 +9,11 @@ class Customer < ApplicationRecord
 
   validates :id, numericality: { only_integer: true }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :first_name, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :first_name, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :last_name, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :last_name, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :street_address, format: { with: /\A[\w.',?!() ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :street_address, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
   validates :province, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
 

@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # GET /items or /items.json
   def index
    if params[:search]
-      @items = Items.where("name LIKE ?", "%#{params[:search]}%")
+      @items = Item.where("(title LIKE ? OR description LIKE ?) AND category_id = ? ", "%#{params[:search]}%", "%#{params[:search]}%", params[:category_id]).page params[:page]
     else
       @items = Item.all.page params[:page]
     end

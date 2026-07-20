@@ -4,6 +4,7 @@
     <p><%= @item.artist %></p>
     <p><%= @item.price %></p>
     <p><%= @item.quantity %></p>
+    <p><%= @item.category_id %></p>
     <% if @item.item_image_path.attached? %>
       <%= image_tag(@item.item_image_path, width: '200px') %>
     <% end %>
