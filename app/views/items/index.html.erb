@@ -12,7 +12,7 @@
 <%= form_with items_path: "/search", method: :get do |f| %>
   <%= text_field_tag :search, params[:search] %>
   <%= f.label :category_id, "Select Category" %>
-  <%= f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: "Choose category" } %>
+  <%= f.collection_select :category_id, Category.order(:name), :id, :name, { prompt: "No Category" } %>
   <%= submit_tag "Search", :name => nil %>
 <% end %>
 
