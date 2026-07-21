@@ -16,6 +16,12 @@
   <%= submit_tag "Search", :name => nil %>
 <% end %>
 
+<ul>
+  <% @categories.each do |category| %>
+    <a href=items?category_id=<%=category.id%>><li><%=category.name%></li></a>
+  <%end%>
+</ul>
+
 <% @items.each do |item| %>
   <%= render "item", item: item %>
 <% end %>

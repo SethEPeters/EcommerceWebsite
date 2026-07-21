@@ -8,3 +8,5 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+#                 ---SETH--- Consider adding to the order items table at the same time. Love you

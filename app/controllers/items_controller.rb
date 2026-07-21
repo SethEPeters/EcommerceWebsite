@@ -7,9 +7,12 @@ class ItemsController < ApplicationController
       @items = Item.where("(title LIKE ? OR description LIKE ?) AND category_id = ? ", "%#{params[:search]}%", "%#{params[:search]}%", params[:category_id]).page params[:page]
     elsif params[:search].present? && params[:category_id].blank?
       @items = Item.where("title LIKE ? OR description LIKE ? ", "%#{params[:search]}%", "%#{params[:search]}%").page params[:page]
+    elsif params[:search].blank? && params[:category_id].present?
+      @items = Item.where("category_id = ? ", params[:category_id]).page params[:page]
     else
       @items = Item.all.page params[:page]
     end
+    @categories = Category.all
   end
 
   # GET /items/1 or /items/1.json
