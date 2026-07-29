@@ -9,9 +9,9 @@ class Item < ApplicationRecord
   validates :quantity, presence: true
 
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :title, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :title, format: { with: /\A[\w.',?!…:;()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :description, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :description, format: { with: /\A[\w.',?!…:;()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
   validates :artist, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letter numbers and some symbolss" }
   validates :price, numericality: true

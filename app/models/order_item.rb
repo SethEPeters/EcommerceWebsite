@@ -8,7 +8,7 @@ class OrderItem < ApplicationRecord
 
   validates :id, numericality: { only_integer: true }
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
-  validates :title, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
+  validates :title, format: { with: /\A[\w.',?!…:;()\- ]+\z/, message: "only allows letters numbers and some symbols" }
   validates :price_at_purchase, numericality: true
   # below allows all letters, numbers, underscore, period, apostrophe, and comma
   validates :date_price_good_until, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
