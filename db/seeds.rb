@@ -12,9 +12,12 @@ require "csv"
 
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-
 Item.destroy_all
 Category.destroy_all
+
+# Reset the id values for the database
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='items';")
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='categories';")
 
 csv_file = Rails.root.join('db/items.csv')
 csv_data = File.read(csv_file)
@@ -30,6 +33,7 @@ items.each do |item|
 
   category = Category.find_or_create_by(name: item['Category'])
 
+  #good for checking for problems in the seed. But also nice to see when seeeding is done
   puts "Creating item: #{item['Title']}"
   puts "Description: #{item['Description']}"
 
