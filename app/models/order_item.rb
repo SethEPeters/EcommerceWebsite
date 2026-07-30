@@ -1,5 +1,7 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
+  belongs_to :item
+  belongs_to :cart
 
   validates :id, presence: true
   validates :title, presence: true
@@ -17,6 +19,6 @@ class OrderItem < ApplicationRecord
     ["id", "title", "price_at_purchase", "date_price_good_until", "created_at", "updated_at"]
   end
   def self.ransackable_associations(auth_object = nil)
-    ["order"]
+    ["order", "cart"]
   end
 end
