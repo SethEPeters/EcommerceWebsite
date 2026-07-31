@@ -8,6 +8,9 @@
     <% if @item.item_image_path.attached? %>
       <%= image_tag(@item.item_image_path, width: '200px') %>
     <% end %>
+    <p>
+      <%= button_to "Add #{@item.title} to cart", line_items_path(:item_id => @item.id) %>
+    </p>
 </div>
 
 <div>
