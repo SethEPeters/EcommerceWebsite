@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :abouts
   resources :contacts
 
+  resources :orders
+
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
 

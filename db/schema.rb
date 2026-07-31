@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_30_044721) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_035739) do
   create_table "abouts", force: :cascade do |t|
     t.text "about_info"
     t.datetime "created_at", null: false
@@ -117,7 +117,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_30_044721) do
     t.datetime "created_at", null: false
     t.integer "item_id"
     t.integer "order_id"
-    t.integer "quantity"
+    t.integer "quantity", default: 1
+    t.decimal "unit_price"
     t.datetime "updated_at", null: false
   end
 
@@ -131,9 +132,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_30_044721) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "date_of_purchase"
     t.string "delivery_address"
+    t.string "email"
+    t.string "name"
     t.float "order_total_at_purchase"
     t.datetime "updated_at", null: false
   end
