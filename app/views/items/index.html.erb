@@ -22,6 +22,11 @@
   <%end%>
 </ul>
 
+<ul>
+  <a href=items?filter=1><li>New</li></a>
+  <a href=items?filter=2><li>Recently Updated</li></a>
+</ul>
+
 <% @items.each do |item| %>
   <%= render "item", item: item %>
 <% end %>

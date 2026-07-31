@@ -9,6 +9,11 @@ class ItemsController < ApplicationController
       @items = Item.where("title LIKE ? OR description LIKE ? ", "%#{params[:search]}%", "%#{params[:search]}%").page params[:page]
     elsif params[:search].blank? && params[:category_id].present?
       @items = Item.where("category_id = ? ", params[:category_id]).page params[:page]
+    elsif params[:search].blank? && params[:category_id].blank? && params[:filter]=="1" #NEW
+      @items = Item.where(created_at: 3.days.ago..Time.current).page params[:page] #NEW
+    elsif params[:search].blank? && params[:category_id].blank? && params[:filter]=="2" #RECENTLY UPDATED
+      # @items = Item.where(updated_at: 3.days.ago..Time.current).page params[:page] #RECENTLY UPDATED
+      @items = Item.where("updated_at >= ?", 20.minutes.ago).page params[:page]
     else
       @items = Item.all.page params[:page]
     end
