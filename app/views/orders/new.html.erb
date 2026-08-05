@@ -2,19 +2,23 @@
 
 <%= form_for(@order) do |f| %>
   <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name, required: true, autofocus: true %>
+    <%= label_tag :first_name %><br>
+    <%= text_field_tag :first_name, nil, required: true, autofocus: true %>
   </p>
   <p>
-    <%= f.label :email %><br>
-    <%= f.email_field :email %>
+    <%= label_tag :last_name %><br>
+    <%= text_field_tag :last_name, nil, required: true%>
   </p>
   <p>
-    <%= f.label :delivery_address %><br>
-    <%= f.text_area :delivery_address %>
+    <%= label_tag :email %><br>
+    <%= email_field_tag :email, nil, required: true %>
   </p>
   <p>
-    <%= f.label :province_tax %><br>
+    <%= label_tag :delivery_address %><br>
+    <%= text_area_tag :delivery_address, nil, required: true %>
+  </p>
+  <p>
+    <%= label_tag :province_tax %><br>
     <%= f.collection_select :province_tax_id, ProvinceTax.all, :id, :province, { prompt: "Select Your Province" } %>
   </p>
   <p>
