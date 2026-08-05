@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :customer
   belongs_to :province_tax
-  has_many :order_item
+  has_many :line_items
 
   validates :id, presence: true
   validates :order_total_at_purchase, presence: true
@@ -19,6 +19,6 @@ class Order < ApplicationRecord
     ["id", "order_total_at_purchase", "delivery_address", "email", "name", "date_of_purchase", "order_item_id", "province_tax_id", "created_at", "updated_at"]
   end
   def self.ransackable_associations(auth_object = nil)
-    ["province_tax","order_item", "customer"]
+    ["province_tax","line_items", "customer"]
   end
 end

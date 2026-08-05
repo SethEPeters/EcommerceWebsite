@@ -14,6 +14,10 @@
     <%= f.text_area :delivery_address %>
   </p>
   <p>
+    <%= f.label :province_tax %><br>
+    <%= f.collection_select :province_tax_id, ProvinceTax.all, :id, :province, { prompt: "Select Your Province" } %>
+  </p>
+  <p>
     <%= f.submit %>
   </p>
 <% end %>

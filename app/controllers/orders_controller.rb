@@ -17,14 +17,18 @@ class OrdersController < ApplicationController
       @order.line_items << item
       item.cart_id = nil
     end
-    @order.save
-    Cart.destroy(session[:cart_id])
-    session[:cart_id] = nil
-    redirect_to root_path
+    if @order.save
+      Cart.destroy(session[:cart_id])
+      session[:cart_id] = nil
+      redirect_to @order
+    else
+      Rails.logger.debug @order.errors.full_messages
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
     def order_params
-      params.require(:order).permit(:name, :email, :delivery_address, :pay_method)
+      params.require(:order).permit(:name, :email, :province_tax_id, :delivery_address, :pay_method)
     end
 end
