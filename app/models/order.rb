@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :customer
-  has_one :province_tax
+  belongs_to :province_tax
   has_many :order_item
 
   validates :id, presence: true
@@ -16,7 +16,7 @@ class Order < ApplicationRecord
   validates :date_of_purchase, format: { with: /\A[\w.',?!()\- ]+\z/, message: "only allows letters numbers and some symbols" }
 
   def self.ransackable_attributes(auth_object = nil)
-    ["id", "order_total_at_purchase", "delivery_address", "date_of_purchase", "order_item_id", "province_tax_id", "created_at", "updated_at"]
+    ["id", "order_total_at_purchase", "delivery_address", "email", "name", "date_of_purchase", "order_item_id", "province_tax_id", "created_at", "updated_at"]
   end
   def self.ransackable_associations(auth_object = nil)
     ["province_tax","order_item", "customer"]
