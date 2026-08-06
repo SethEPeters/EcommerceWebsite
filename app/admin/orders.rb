@@ -16,5 +16,21 @@ ActiveAdmin.register Order do
   # end
 
 # config.filters = false
+  show do
+    attributes_table do
+      row :id
+      row :customer
+      row :delivery_address
+      row :order_total_at_purchase
+      row :date_of_purchase
+    end
 
+    panel "Items Ordered (Line Items)" do
+      table_for order.line_items do
+        column :name
+        column :quantity
+        column :total_price
+      end
+    end
+  end
 end

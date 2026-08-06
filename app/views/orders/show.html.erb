@@ -1,4 +1,14 @@
-<h1>Orders#show</h1>
+<h1>Thank you for your order!</h1>
 
-<p>@order.order_total_at_purchase</p>
+<p> <%= @order.first_name %> <%= @order.last_name %></p>
+<p> Total Price <%= @order.order_total_at_purchase %></p>
+<p> Ordered at <%= @order.date_of_purchase %></p>
+<p> Delivering to <%= @order.delivery_address %></p>
+
+<ul>
+    <% @order.line_items.each do |item| %>
+    <li><%= item.quantity %> x <%= item.item.title %></li>
+    <% end %>
+  </ul>
+
 

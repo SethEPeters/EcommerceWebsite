@@ -12,15 +12,24 @@ class OrdersController < ApplicationController
   end
 
   def create
-    prov_id = params[:province]
-    puts "HEREHEREHEREHEREHEREHERE "
-    puts prov_id
-    @customer = Customer.create!(first_name: params[:first_name], last_name: params[:last_name], email: params[:email],
-    street_address: params[:delivery_address], province: ProvinceTax.select(:name).find(prov_id))
+    prov_id = params[:order][:province_tax_id]
+    # prov = ProvinceTax.find(prov_id).province
+    # puts "OUT PUT OUT PUT OUT PUT #{prov}"
 
-    @order = Order.new(order_params)
+    @customer = Customer.create!(first_name: params[:first_name], last_name: params[:last_name], email: params[:email],
+    street_address: params[:delivery_address], province: ProvinceTax.find(prov_id).province)
+
+    @order = Order.new(order_params) #This takes the new.html.erb for inputs that have a (f.) before it. Right now only province
     @order.customer = @customer
-    @order.order_total_at_purchase = @current_cart.sub_total
+    @order.first_name = params[:first_name]
+    @order.last_name = params[:last_name]
+    @order.email = params[:email]
+    @order.delivery_address = params[:delivery_address]
+
+    order_gst = @current_cart.sub_total * (ProvinceTax.find(prov_id).gst / 100)
+    order_pst = @current_cart.sub_total * (ProvinceTax.find(prov_id).pst / 100)
+    order_hst = @current_cart.sub_total * (ProvinceTax.find(prov_id).hst / 100)
+    @order.order_total_at_purchase = @current_cart.sub_total + order_gst + order_pst + order_hst
     @order.date_of_purchase = Time.current
     @current_cart.line_items.each do |item|
       @order.line_items << item
