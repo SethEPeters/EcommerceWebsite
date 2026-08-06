@@ -11,6 +11,14 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+    customer = @order.customer
+    @order.destroy
+    customer.destroy
+    redirect_to items_path
+  end
+
   def create
     prov_id = params[:order][:province_tax_id]
     # prov = ProvinceTax.find(prov_id).province

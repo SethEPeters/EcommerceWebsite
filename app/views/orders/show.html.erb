@@ -6,9 +6,11 @@
 <p> Delivering to <%= @order.delivery_address %></p>
 
 <ul>
-    <% @order.line_items.each do |item| %>
+  <% @order.line_items.each do |item| %>
     <li><%= item.quantity %> x <%= item.item.title %></li>
-    <% end %>
-  </ul>
+  <% end %>
+</ul>
 
+<%= link_to "Continue Shopping", items_path %><br><br>
 
+<%= button_to "Cancel Order", @order, method: :delete %>

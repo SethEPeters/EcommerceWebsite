@@ -15,5 +15,6 @@
   <% end %>
 </ul>
 <h3>Sub total Pre Tax: <%= number_to_currency(@cart.sub_total) %></h3>
+<%= link_to "Continue Shopping", items_path %><br><br>
 <%= link_to "Proceed to checkout", new_order_path %><br>
 <%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"} %>
