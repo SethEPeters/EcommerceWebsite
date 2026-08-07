@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
-  get "carts/show"
+  devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get "carts/show"
   resources :items
   resources :abouts
   resources :contacts
 
   resources :orders
+
+  devise_for :items
+  root to: "items#index"
+
+  # root "items#index"
 
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"

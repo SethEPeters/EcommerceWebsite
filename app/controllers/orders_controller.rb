@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all
+    if user_signed_in?
+      @orders = Order.all.where(email: current_user.email)
+    else
+      @orders = nil
+    end
   end
 
   def show

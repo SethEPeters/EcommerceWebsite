@@ -5,6 +5,14 @@
 <nav>
   <a href="abouts/1"><p>about</p></a>
   <a href="contacts"><p>contact</p></a>
+  <a href="orders">view orders</a>
+  <% if user_signed_in? %>
+    <p>Welcome back, <%= current_user.email %>!</p>
+    <%= link_to "log out", destroy_user_session_path, data: { turbo_method: :delete } %>
+  <% else %>
+    <a href="users/sign_up">sign up</a>
+    <a href="users/sign_in">log in</a>
+  <% end %>
 </nav>
 
 <h1>Items</h1>

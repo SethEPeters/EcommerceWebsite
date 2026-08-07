@@ -27,7 +27,7 @@ ActiveAdmin.register Order do
 
     panel "Items Ordered (Line Items)" do
       table_for order.line_items do
-        column :name
+        column :title
         column :quantity
         column :total_price
       end
