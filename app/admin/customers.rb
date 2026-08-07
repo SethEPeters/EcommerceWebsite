@@ -44,6 +44,7 @@ ActiveAdmin.register Customer do
         gst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).gst / 100))
         pst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).pst / 100))
         hst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).hst / 100))
+        grand_total = number_to_currency(order.order_total_at_purchase)
 
         attributes_table do
           row "sub_total" do
@@ -59,7 +60,7 @@ ActiveAdmin.register Customer do
             hst
           end
           row "grand total" do
-            sub_total + gst + pst + hst
+            grand_total
           end
         end
       end
