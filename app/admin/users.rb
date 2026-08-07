@@ -28,14 +28,36 @@ ActiveAdmin.register User do
     end
 
     orders = Order.where( email: resource.email)
-    panel "Items Ordered (Line Items)" do
-      orders.each do |order|
+    orders.each do |order|
+      panel "Items Ordered (Line Items)" do
         table_for order.line_items do
           column "Item" do |line_item|
             line_item.item.title
           end
           column :quantity
           column :total_price
+        end
+      end
+      panel "Order Totals" do
+        prov_id = order.province_tax.id
+        sub_total = number_to_currency(order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) +(ProvinceTax.find(order.province_tax.id).hst / 100)))
+        gst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).gst / 100))
+        pst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).pst / 100))
+        hst = number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).hst / 100))
+
+        attributes_table do
+          row "sub_total" do
+            sub_total
+          end
+          row "gst" do
+            gst
+          end
+          row "pst" do
+            pst
+          end
+          row "hst" do
+            hst
+          end
         end
       end
     end
