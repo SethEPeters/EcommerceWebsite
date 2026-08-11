@@ -7,7 +7,7 @@
     <p><%= number_to_currency( item.price ) %></p>
     <p>Quantity: <%= item.quantity %></p>
     <% if item.item_image_path.attached? %>
-      <%= image_tag(item.item_image_path, width: '200px') %>
+      <%= image_tag item.item_image_path, width: "200" %>
     <% end %>
   </div>
 </a>
