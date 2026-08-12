@@ -17,8 +17,10 @@ local:
 # Remember not to checkin your GCS keyfile to a repository
 google:
   service: GCS
+  credentials: <%= Rails.root.join("config/google/ecommerce-rails.json") %>
   project: ecommerce-site-505215
   bucket: ecommerce-site-images-bucket
+  public: true
 
 # mirror:
 #   service: Mirror
