@@ -6,7 +6,7 @@
     <p><%= @item.quantity %></p>
     <p><%= @item.category_id %></p>
     <% if @item.item_image_path.attached? %>
-      <%= image_tag item.item_image_path.variant(:item_view) %>
+      <%= image_tag @item.item_image_path.variant(:item_view) %>
     <% end %>
     <p>
       <%= button_to "Add #{@item.title} to cart", line_items_path(:item_id => @item.id) %>
