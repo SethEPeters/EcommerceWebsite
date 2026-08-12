@@ -3,7 +3,21 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    if params[:search].present? && params[:category_id].present?
+      @items = Item.where("(title LIKE ? OR description LIKE ?) AND category_id = ? ", "%#{params[:search]}%", "%#{params[:search]}%", params[:category_id]).page params[:page]
+    elsif params[:search].present? && params[:category_id].blank?
+      @items = Item.where("title LIKE ? OR description LIKE ? ", "%#{params[:search]}%", "%#{params[:search]}%").page params[:page]
+    elsif params[:search].blank? && params[:category_id].present?
+      @items = Item.where("category_id = ? ", params[:category_id]).page params[:page]
+    elsif params[:search].blank? && params[:category_id].blank? && params[:filter]=="1" #NEW
+      @items = Item.where(created_at: 3.days.ago..Time.current).page params[:page] #NEW
+    elsif params[:search].blank? && params[:category_id].blank? && params[:filter]=="2" #RECENTLY UPDATED
+      @items = Item.where(updated_at: 3.days.ago..Time.current).page params[:page] #RECENTLY UPDATED
+      # @items = Item.where("updated_at >= ?", 1.minutes.ago).page params[:page] ### TODO update this after presentation
+    else
+      @items = Item.all.page params[:page]
+    end
+    @categories = Category.all
   end
 
   # GET /items/1 or /items/1.json
@@ -66,5 +80,6 @@ class ItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def item_params
       params.expect(item: [ :title, :description, :item_image_path, :artist, :price, :quantity ])
+      params.require(:item).permit(:image)
     end
 end

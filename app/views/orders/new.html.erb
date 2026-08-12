@@ -1,0 +1,31 @@
+<h1>Orders#new</h1>
+
+<p>SubTotal: <%= @current_cart.sub_total %> </p>
+
+
+<%= form_for(@order) do |f| %>
+  <p>
+    <%= label_tag :first_name %><br>
+    <%= text_field_tag :first_name, nil, required: true, autofocus: true %>
+  </p>
+  <p>
+    <%= label_tag :last_name %><br>
+    <%= text_field_tag :last_name, nil, required: true%>
+  </p>
+  <p>
+    <%= label_tag :email %><br>
+    <%= email_field_tag :email, nil, required: true %>
+  </p>
+  <p>
+    <%= label_tag :delivery_address %><br>
+    <%= text_field_tag :delivery_address, nil, required: true %>
+  </p>
+  <p>
+    <%= label_tag :province_tax, "Province" %><br>
+    <%= f.collection_select :province_tax_id, ProvinceTax.all, :id, :province, { prompt: "Select Your Province" } %>
+
+  </p>
+  <p>
+    <%= f.submit "Proceed" %>
+  </p>
+<% end %>
