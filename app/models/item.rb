@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
   belongs_to :category
-  has_one_attached :item_image_path
+  has_one_attached :item_image_path do |attachable|
+    attachable.variant :list_thumbnail, resize_to_limit: [200, 200], preprocessed: true
+    attachable.variant :item_view, resize_to_limit: [200, 200], preprocessed: true
+  end
 
   validates :title, presence: true
   validates :description, presence: true
