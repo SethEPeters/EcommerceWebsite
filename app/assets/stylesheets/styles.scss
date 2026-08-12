@@ -1,0 +1,16 @@
+@import "bootstrap";
+
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+
+div{
+  border: 2px solid black;
+}
+
+nav{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}

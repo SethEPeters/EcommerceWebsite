@@ -35,6 +35,8 @@
   <a href=items?filter=2><li>Recently Updated</li></a>
 </ul>
 
+<%= paginate @items%>
+
 <% @items.each do |item| %>
   <%= render "item", item: item %>
 <% end %>
