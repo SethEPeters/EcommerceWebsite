@@ -1,0 +1,22 @@
+<h1>All Orders</h1>
+
+<%= link_to "Continue Shopping", items_path %><br><br>
+
+<% @orders.each do |order| %>
+  <p> <%= order.first_name %> <%= order.last_name %></p>
+  <p> Total before tax <%= number_to_currency(order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) +(ProvinceTax.find(order.province_tax.id).hst / 100))) %></p>
+  <p> + GST @ <%= ProvinceTax.find(order.province_tax.id).gst%>% <%= number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).gst / 100)) %></p>
+  <p> + PST @ <%= ProvinceTax.find(order.province_tax.id).pst%>% <%= number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).pst / 100)) %></p>
+  <p> + HST @ <%= ProvinceTax.find(order.province_tax.id).hst%>% <%= number_to_currency((order.order_total_at_purchase / (1 + (ProvinceTax.find(order.province_tax.id).gst / 100) + (ProvinceTax.find(order.province_tax.id).pst / 100) + (ProvinceTax.find(order.province_tax.id).hst / 100))) * (ProvinceTax.find(order.province_tax.id).hst / 100)) %></p>
+  <p> Total Price <%= order.order_total_at_purchase %></p>
+  <p> Ordered at <%= order.date_of_purchase %></p>
+  <p> Delivering to <%= order.delivery_address %></p>
+  <p>Items: </p>
+  <ul>
+    <% order.line_items.each do |item| %>
+    <li><%= item.quantity %> x <%= item.item.title %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <%= link_to "Continue Shopping", items_path %><br><br>
