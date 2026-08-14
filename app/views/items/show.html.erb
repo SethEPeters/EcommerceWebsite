@@ -6,16 +6,16 @@
   <div class="d-flex justify-content-between collapse navbar-collapse nav-div" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="abouts/1">about</a>
+        <a class="nav-link" href="http://localhost:3000/abouts/1">about</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contacts">contact</a>
+        <a class="nav-link" href="http://localhost:3000/contacts">contact</a>
       </li>
     </ul>
     <ul class="navbar-nav mr-auto">
     <% if user_signed_in? %>
       <li class="nav-item">
-        <a class="nav-link" href="orders">view orders</a>
+        <a class="nav-link" href="http://localhost:3000/orders">view orders</a>
       </li>
       <li class="nav-item">
       <%= link_to "log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
@@ -25,10 +25,10 @@
       </li>
       <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="users/sign_up">sign up</a>
+          <a class="nav-link" href="http://localhost:3000/users/sign_up">sign up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="users/sign_in">log in</a>
+          <a class="nav-link" href="http://localhost:3000/users/sign_in">log in</a>
         </li>
       <% end %>
     </ul>
@@ -36,22 +36,23 @@
 </nav>
 
 <div class="row main-row">
-  <div class="col">
+  <div class="col image-col">
     <% if @item.item_image_path.attached? %>
       <%= image_tag @item.item_image_path.variant(:item_view) %>
     <% end %>
   </div>
-  <div class="col">
-    <h1><%= @item.title %></h1>
+  <div class="col-4 info-col">
+    <h1 class="item-page-font"><%= @item.title %></h1>
+    <hr>
     <p><%= @item.description %></p>
-    <strong><%= @item.artist %></strong>
+    <strong class="item-page-font"><%= @item.artist %></strong>
     <p><%= @item.category.name %></p>
   </div>
-  <div class="col">
-    <h2>$<%= @item.price %></h2>
+  <div class="col buy-col">
+    <h2 class="item-page-font"><%= number_to_currency(@item.price) %></h2>
     <p>only <%= @item.quantity %> left!</p>
-    <p>
+    <h3 class="cart-button">
       <%= button_to "Add to cart", line_items_path(:item_id => @item.id) %>
-    </p>
+    </h3>
   </div>
 </div>

@@ -1,20 +1,57 @@
-<h1>Thank you for your order!</h1>
+<nav class="navbar navbar-expand-lg  navbar-light bg-light nav-nav">
+  <a class="navbar-brand" href="http://localhost:3000/items">CD-Vinyl Records</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="d-flex justify-content-between collapse navbar-collapse nav-div" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/abouts/1">about</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/contacts">contact</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-auto">
+    <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/orders">view orders and account details</a>
+      </li>
+      <li class="nav-item">
+      <%= link_to "log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
+      </li>
+      <li class="nav-item">
+        <p class="navbar-text" >Welcome back, <%= current_user.email %>!</p>
+      </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/users/sign_up">sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/users/sign_in">log in</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
 
-<p> <%= @order.first_name %> <%= @order.last_name %></p>
-<p> Total before tax <%= number_to_currency(@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) +(ProvinceTax.find(@order.province_tax.id).hst / 100))) %></p>
-<p> + GST @ <%= ProvinceTax.find(@order.province_tax.id).gst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).gst / 100)) %></p>
-<p> + PST @ <%= ProvinceTax.find(@order.province_tax.id).pst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).pst / 100)) %></p>
-<p> + HST @ <%= ProvinceTax.find(@order.province_tax.id).hst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).hst / 100)) %></p>
-<p> Total Price <%= @order.order_total_at_purchase %></p>
-<p> Ordered at <%= @order.date_of_purchase %></p>
-<p> Delivering to <%= @order.delivery_address %></p>
-
-<ul>
-  <% @order.line_items.each do |item| %>
-    <li><%= item.quantity %> x <%= item.item.title %></li>
-  <% end %>
-</ul>
-
-<%= link_to "Continue Shopping", items_path %><br><br>
-
-<%= button_to "Cancel Order", @order, method: :delete %>
+<div class="row invoice-row">
+  <div class="col">
+    <h1 class="invoice-title">Thank you for your order!</h1>
+    <hr>
+    <h2 class="invoice-name"> Delivering to <%= @order.first_name %> <%= @order.last_name %></h2>
+    <p> Total before tax <%= number_to_currency(@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) +(ProvinceTax.find(@order.province_tax.id).hst / 100))) %></p>
+    <p> + GST @ <%= ProvinceTax.find(@order.province_tax.id).gst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).gst / 100)) %></p>
+    <p> + PST @ <%= ProvinceTax.find(@order.province_tax.id).pst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).pst / 100)) %></p>
+    <p> + HST @ <%= ProvinceTax.find(@order.province_tax.id).hst%>% <%= number_to_currency((@order.order_total_at_purchase / (1 + (ProvinceTax.find(@order.province_tax.id).gst / 100) + (ProvinceTax.find(@order.province_tax.id).pst / 100) + (ProvinceTax.find(@order.province_tax.id).hst / 100))) * (ProvinceTax.find(@order.province_tax.id).hst / 100)) %></p>
+    <strong> Total Price <%= @order.order_total_at_purchase %></strong>
+    <p> Ordered at <%= @order.date_of_purchase %></p>
+    <p> Delivering to <%= @order.delivery_address %></p>
+    <ol>
+      <% @order.line_items.each do |item| %>
+        <li><%= item.quantity %> x <%= item.item.title %></li>
+      <% end %>
+    </ol>
+    <%= button_to "Cancel Order", @order, method: :delete %>
+  </div>
+</div>

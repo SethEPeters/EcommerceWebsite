@@ -1,20 +1,61 @@
-<h1>Carts#show</h1>
-
-<ul>
-  <% @cart.line_items.each do |line_item| %>
-    <li>Item: <%= line_item.item.title %>/ Price: <%= number_to_currency(line_item.item.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
-    <ul>
-      <li>
-        <%= link_to "Add one", line_item_add_path(id: line_item.id), data: { turbo_method: :post } %>
-        <%= link_to "Reduce one", line_item_reduce_path(id: line_item.id), data: { turbo_method: :post } %>
+<nav class="navbar navbar-expand-lg  navbar-light bg-light nav-nav">
+  <a class="navbar-brand" href="http://localhost:3000/items">CD-Vinyl Records</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="d-flex justify-content-between collapse navbar-collapse nav-div" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/abouts/1">about</a>
       </li>
-      <li>
-        <%= link_to "Remove item", line_item_path(line_item), data: { turbo_method: :delete } %>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/contacts">contact</a>
       </li>
     </ul>
-  <% end %>
-</ul>
-<h3>Sub total Pre Tax: <%= number_to_currency(@cart.sub_total) %></h3>
-<%= link_to "Continue Shopping", items_path %><br><br>
-<%= link_to "Proceed to checkout", new_order_path %><br>
-<%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"} %>
+    <ul class="navbar-nav mr-auto">
+    <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:3000/orders">view orders</a>
+      </li>
+      <li class="nav-item">
+      <%= link_to "log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
+      </li>
+      <li class="nav-item">
+        <p class="navbar-text" >Welcome back, <%= current_user.email %>!</p>
+      </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/users/sign_up">sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/users/sign_in">log in</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col">
+    <ol>
+      <% @cart.line_items.each do |line_item| %>
+        <li>
+          <strong><%= line_item.item.title %></strong>
+          <p>Quantity: <%= line_item.quantity %>
+            <strong><%= link_to "-", line_item_reduce_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %></strong>
+            <strong><%= link_to "+", line_item_add_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %></strong>
+          </p>
+          <p class="total-price">Total Price: <%= number_to_currency(line_item.total_price) %></p>
+            <%= link_to "Remove", line_item_path(line_item), data: { turbo_method: :delete }, class:"checkout-button" %>
+        </li>
+        <hr>
+      <% end %>
+    </ol>
+  </div>
+  <div class="col">
+    <h3 class="sub-total">Sub total Pre Tax: <%= number_to_currency(@cart.sub_total) %></h3>
+    <%= link_to "Proceed to checkout", new_order_path, class:"checkout-button" %><br>
+    <br>
+    <%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"}, class:"checkout-button" %>
+  </div>
+</div>
