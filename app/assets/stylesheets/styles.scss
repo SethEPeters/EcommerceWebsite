@@ -1,16 +1,291 @@
 @import "bootstrap";
 
+$business-colour: #3a3939 ;
+$primary-colour: rgb(227, 226, 226);
+$secondary-colour: rgb(209, 209, 209);
+$border-colour: rgba(119, 119, 119, 0.315);
+
+body{
+  background-color: $secondary-colour;
+}
+
+button, .search-button{
+  border-radius: 25px;
+  background-color: $primary-colour;
+}
+
+.row{
+  padding: 0;
+  margin: 0;
+}
+
+.col{
+  padding: 0;
+  margin: 0;
+}
+
+// ################  Main Page for the most part  #######################
+
+.search-button{
+  margin-top: 8px;
+}
+
+%pagination-shared{
+  margin: 12px 0px 0px 0px;
+  padding: 0px 0px 12px 0px;
+}
+
+%pagination-words-shared{
+  color: white;
+}
+
 .pagination{
+  display: flex;
+  justify-content: center;
+  @extend %pagination-shared;
+
+  & .page, & .next, & .first, & .last, & .prev {
+    background-color: rgb(140, 139, 139);
+    border: 2px solid black;
+    padding: 5px 10px 5px 10px;
+    @extend %pagination-shared;
+  }
+
+   & .page:hover, & .next:hover, & .first:hover, & .last:hover, & .prev:hover {
+    zoom: 90%;
+  }
+
+  & a{
+    text-decoration: none;
+    @extend %pagination-words-shared;
+  }
+
+  .page.current{
+    text-decoration: underline;
+    @extend %pagination-words-shared;
+  }
+
+  & .gap{
+    display: none;
+  }
+}
+
+.nav-nav{
+  box-shadow: 0px 0px 10px black;
+}
+
+.nav-search-div form{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  font-family:'Times New Roman', Times, serif;
+}
+
+.nav-div{
+  border: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.row > *{
+  padding: 0;
+  margin: 0;
+}
+
+.search-row{
+  padding-bottom: 8px;
+  border-bottom: 2px solid $border-colour;
+  background-color: $primary-colour;
+  box-shadow: 0px 2px 5px black;
+  margin-bottom: 5px;
+}
+
+.col .col-9 .col-10{
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav{
+  border-right: 3px solid $border-colour;
+  background-color: $secondary-colour;
+  font-family:'Times New Roman', Times, serif;
+
+  & ul{
+    list-style: none;
+  }
+
+  & a{
+    text-decoration: underline;
+    color: black;
+  }
+}
+
+.item-pic{
+  border-right: 3px solid $border-colour;
+  border-bottom: 3px solid $border-colour;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
   display: flex;
   justify-content: center;
 }
 
-div{
-  border: 2px solid black;
+.item-link{
+  text-decoration: none;
+  color: black;
+
+  &:hover{
+    zoom: 100% + 5%;
+  }
+}
+.item-div{
+  background-color: $primary-colour;
+  box-shadow: 0px 2px 5px black;
+  &:hover{
+    background-color: $secondary-colour;
+  }
+}
+
+.item-info{
+  border-bottom: 3px solid rgba(119, 119, 119, 0.315);
+  padding-left: 6px;
 }
 
 nav{
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+}
+
+.nav-link{
+  border-left: 1px solid $border-colour;
+  border-right: 1px solid $border-colour;
+}
+
+.navbar{
+  margin-bottom: 12px;
+  font-family:'Times New Roman', Times, serif;
+}
+
+.navbar-text{
+  padding-left: 4px;
+  margin-bottom: 0px;
+}
+
+.navbar-brand{
+  color: $business-colour;
+}
+
+// ################  Item Page  #######################
+
+.main-row{
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  margin: 100px 0 0 0;
+}
+
+.image-col, .info-col{
+  border-right: 2px solid $border-colour;
+  padding: 12px;
+}
+
+.buy-col{
+  padding: 12px;
+}
+
+.cart-button button:hover{
+  background-color: $secondary-colour;
+}
+
+.item-page-font{
+  font-family:'Times New Roman', Times, serif;
+}
+
+// ################  Cart Page  #######################
+
+.checkout-list {
+  list-style-type: none;
+}
+
+.checkout-li{
+  padding: 4px;
+  margin: 12px;
+}
+
+.checkout-button{
+  border-radius: 25px;
+  text-decoration: none;
+  margin: 12px;
+  padding: 4px;
+}
+
+.sub-total{
+  font-family:'Times New Roman', Times, serif;
+}
+
+// ################  Checkout Page  #######################
+
+.information-fillout-row{
+  margin: 0;
+  border: 2px solid $border-colour;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  padding: 10px;
+  & p, & strong{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.proceed-button{
+  border-radius: 25px;
+  background-color: $primary-colour;
+}
+
+// ################  Invoice Page  #######################
+
+.invoice-title, .invoice-name{
+  font-family:'Times New Roman', Times, serif;
+}
+
+.invoice-row{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+
+// ################  All Orders Page  #######################
+
+.all-orders-title, .all-orders-name{
+  font-family:'Times New Roman', Times, serif;
+}
+
+.all-orders-row{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+}
+
+.all-orders-order{
+  padding: 20px;
+}
+
+// ################  All Contacts Page  #######################
+
+.contacts-title{
+  font-family:'Times New Roman', Times, serif;
+}
+
+.contacts-row{
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+
+  & a{
+    text-decoration: none;
+  }
 }
