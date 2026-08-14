@@ -1,18 +1,57 @@
-<div id="item">
-    <p><%= @item.title %></p>
-    <p><%= @item.description %></p>
-    <p><%= @item.artist %></p>
-    <p><%= @item.price %></p>
-    <p><%= @item.quantity %></p>
-    <p><%= @item.category_id %></p>
+<nav class="navbar navbar-expand-lg  navbar-light bg-light nav-nav">
+  <a class="navbar-brand" href="http://localhost:3000/items">CD-Vinyl Records</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="d-flex justify-content-between collapse navbar-collapse nav-div" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="abouts/1">about</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contacts">contact</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-auto">
+    <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="orders">view orders</a>
+      </li>
+      <li class="nav-item">
+      <%= link_to "log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
+      </li>
+      <li class="nav-item">
+        <p class="navbar-text" >Welcome back, <%= current_user.email %>!</p>
+      </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="users/sign_up">sign up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="users/sign_in">log in</a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="row main-row">
+  <div class="col">
     <% if @item.item_image_path.attached? %>
       <%= image_tag @item.item_image_path.variant(:item_view) %>
     <% end %>
+  </div>
+  <div class="col">
+    <h1><%= @item.title %></h1>
+    <p><%= @item.description %></p>
+    <strong><%= @item.artist %></strong>
+    <p><%= @item.category.name %></p>
+  </div>
+  <div class="col">
+    <h2>$<%= @item.price %></h2>
+    <p>only <%= @item.quantity %> left!</p>
     <p>
-      <%= button_to "Add #{@item.title} to cart", line_items_path(:item_id => @item.id) %>
+      <%= button_to "Add to cart", line_items_path(:item_id => @item.id) %>
     </p>
-</div>
-
-<div>
-  <%= link_to "Back to items", items_path %>
+  </div>
 </div>

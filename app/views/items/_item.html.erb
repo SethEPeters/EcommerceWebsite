@@ -1,13 +1,18 @@
-
-<a href="items/<%= item.id %>">
-  <div id="items">
-    <strong><%= item.title %></strong>
-    <p><%= item.description %></p>
-    <p><%= item.artist %></p>
-    <p><%= number_to_currency( item.price ) %></p>
-    <p>Quantity: <%= item.quantity %></p>
-    <% if item.item_image_path.attached? %>
-      <%= image_tag item.item_image_path.variant(:list_thumbnail) %>
-    <% end %>
+<a class="item-link" href="items/<%= item.id %>">
+  <div class="container item-div text-left">
+    <div class="row">
+      <div class="col-3 item-pic">
+      <% if item.item_image_path.attached? %>
+          <%= image_tag item.item_image_path.variant(:list_thumbnail) %>
+          <% end %>
+      </div>
+      <div class="col-9 item-info">
+        <strong><%= item.title %></strong>
+        <p><%= item.description %></p>
+        <p><%= item.artist %></p>
+        <p><%= number_to_currency( item.price ) %></p>
+        <p>Quantity: <%= item.quantity %></p>
+        </div>
+    </div>
   </div>
 </a>
