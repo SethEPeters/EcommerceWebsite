@@ -41,10 +41,11 @@
       <% @cart.line_items.each do |line_item| %>
         <li>
           <strong><%= line_item.item.title %></strong>
-          <p>Quantity: <%= line_item.quantity %>
-            <strong><%= link_to "-", line_item_reduce_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %></strong>
-            <strong><%= link_to "+", line_item_add_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %></strong>
-          </p>
+          <p>Quantity: <%= line_item.quantity %></p>
+          <div class="quantity-buttons">
+          <%= button_to "-", line_item_reduce_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %>
+          <%= button_to "+", line_item_add_path(id: line_item.id), data: { turbo_method: :post }, class:"checkout-button" %>
+          </div>
           <p class="total-price">Total Price: <%= number_to_currency(line_item.total_price) %></p>
             <%= link_to "Remove", line_item_path(line_item), data: { turbo_method: :delete }, class:"checkout-button" %>
         </li>
@@ -53,6 +54,9 @@
     </ol>
   </div>
   <div class="col">
+    <% if @cart.sub_total > 100 %>
+      <p>Customer <%=session[:cart_id]%>, <%=flash[:large_order]%></p>
+    <% end %>
     <h3 class="sub-total">Sub total Pre Tax: <%= number_to_currency(@cart.sub_total) %></h3>
     <%= link_to "Proceed to checkout", new_order_path, class:"checkout-button" %><br>
     <br>
