@@ -36,12 +36,6 @@
 </nav>
 
 <div class="row all-orders-row">
-  <p>
-    <%= label_tag :province_tax, "Province" %>
-    <%= f.collection_select :province_tax_id, ProvinceTax.all, :id, :province, { prompt: "Select Your Province" } %>
-  </p>
-</div>
-<div class="row all-orders-row">
   <h1 class="all-orders-title">All Orders</h1>
 </div>
 <% @orders.each do |order| %>

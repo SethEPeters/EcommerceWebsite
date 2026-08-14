@@ -15,7 +15,7 @@
     <ul class="navbar-nav mr-auto">
     <% if user_signed_in? %>
       <li class="nav-item">
-        <a class="nav-link" href="http://localhost:3000/orders">view orders and account details</a>
+        <a class="nav-link" href="http://localhost:3000/orders">view orders</a>
       </li>
       <li class="nav-item">
       <%= link_to "log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
