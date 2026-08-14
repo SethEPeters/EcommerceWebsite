@@ -1,6 +1,9 @@
 class CartsController < ApplicationController
   def show
     @cart = @current_cart
+
+    flash[:large_order] = "Thank you so much for your patronage!"
+
   end
 
   def destroy
